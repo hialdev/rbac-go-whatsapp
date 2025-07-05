@@ -19,10 +19,10 @@ func main() {
 
 	app := fiber.New()
 	app.Use(cors.New(cors.Config{
-        AllowOrigins:     "http://localhost:4321, http://localhost:5173, http://localhost:8081, http://localhost:19000, http://localhost:19001, http://localhost:19002",
+        AllowOrigins:     "*",
         AllowMethods:     "GET,POST,DELETE",
         AllowHeaders:     "Origin,Content-Type,Authorization",
-        AllowCredentials: true,
+        AllowCredentials: false,
     }))
 
 	connection.InitDB()
