@@ -27,9 +27,9 @@ jobs:
       - name: Upload binary to VPS
         uses: appleboy/scp-action@v0.1.1
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           source: todolifapi
           target: /root/todolifapi
