@@ -175,7 +175,7 @@ func (s *Seeder) SeedUsers() error {
 	}
 
 	// Hash password
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte("password123"), bcrypt.DefaultCost)
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte("#Password123"), bcrypt.DefaultCost)
 	if err != nil {
 		return fmt.Errorf("failed to hash password: %w", err)
 	}
@@ -240,7 +240,7 @@ func (s *Seeder) CleanAll() error {
 		return fmt.Errorf("failed to clean roles: %w", err)
 	}
 
-	if err := s.DB.Delete(&models.Permission{}).Error; err != nil {
+	if err := s.DB.Delete(&models.Permission{}, "name LIKE ?", "").Error; err != nil {
 		return fmt.Errorf("failed to clean permissions: %w", err)
 	}
 

@@ -1,9 +1,10 @@
 package handlers
 
 import (
-	"reflect"
 	"al/models"
 	"al/utils"
+	"reflect"
+	"strings"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
@@ -21,7 +22,12 @@ func NewHandlerGeneric[T any](db *gorm.DB) *HandlerGeneric[T] {
 }
 
 func (g *HandlerGeneric[T]) GetAll(c *fiber.Ctx) error {
-	data, err := models.All[T](g.DB)
+	preloadStr := c.Query("preload", "")
+	preloads := []string{}
+	if preloadStr != "" {
+		preloads = strings.Split(preloadStr, ",")
+	}
+	data, err := models.All[T](g.DB, preloads...)
 	if err != nil {
 		return utils.RespApi(c, "ise", "Gagal Query All", err.Error())
 	}
@@ -35,10 +41,17 @@ func (g *HandlerGeneric[T]) GetById(c *fiber.Ctx) error {
 		return utils.RespApi(c, "bad", "UUID Tidak Valid", id)
 	}
 
-	data, err := models.Find[T](g.DB, id)
+	preloadStr := c.Query("preload", "")
+	preloads := []string{}
+	if preloadStr != "" {
+		preloads = strings.Split(preloadStr, ",")
+	}
+
+	data, err := models.Find[T](g.DB, id, preloads...)
 	if err != nil {
 		return utils.RespApi(c, "empty", "Tidak menemukan data id "+idStr, id)
 	}
+
 	return utils.RespApi(c, "ok", "Mendapatkan Data", data)
 }
 

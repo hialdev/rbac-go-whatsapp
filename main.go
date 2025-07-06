@@ -18,12 +18,19 @@ func main() {
 	utils.ValidationTranslationInit()
 
 	app := fiber.New()
+	// app.Use(cors.New(cors.Config{
+   //      AllowOrigins:     "http://localhost:8081, http://localhost:8082",
+   //      AllowMethods:     "GET,POST,DELETE",
+   //      AllowHeaders:     "Origin,Content-Type,Authorization",
+   //      AllowCredentials: true,
+   //  }))
+
 	app.Use(cors.New(cors.Config{
-        AllowOrigins:     "*",
-        AllowMethods:     "GET,POST,DELETE",
-        AllowHeaders:     "Origin,Content-Type,Authorization",
-        AllowCredentials: false,
-    }))
+		 AllowOrigins:     "*",
+		 AllowMethods:     "GET,POST,DELETE",
+		 AllowHeaders:     "Origin,Content-Type,Authorization",
+		 AllowCredentials: false,
+	}))
 
 	connection.InitDB()
 	connection.InitRedis()
@@ -36,6 +43,12 @@ func main() {
 		&models.Permission{},
 		&models.Otp{},
 		&models.Setting{},
+		&models.TodoGroup{},
+		&models.TodoGroupMember{},
+		&models.Task{},
+		&models.TaskDiscussion{},
+		&models.ChatHistory{},
+		&models.ChatSummary{},
 	)
 
 	routes.SetupRoutes(app, connection.DB)
