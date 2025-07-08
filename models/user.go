@@ -15,7 +15,8 @@ type User struct {
 	VerifiedAt bool       `json:"verified_at,omitempty" validate:"omitempty,boolean"`
 	RoleID     *uuid.UUID `json:"role_id,omitempty"`
 
-	Role Role `json:"role,omitempty" gorm:"foreignKey:RoleID;constraint:SET NULL;"`
+	Role       Role        `json:"role,omitempty" gorm:"foreignKey:RoleID;constraint:SET NULL;"`
+	TodoGroups []TodoGroup `gorm:"many2many:todo_group_members;joinForeignKey:UserID;joinReferences:TodoGroupID" json:"todo_groups"`
 }
 
 func (u *User) BeforeDelete(db *gorm.DB) (err error) {
