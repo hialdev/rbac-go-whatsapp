@@ -12,6 +12,6 @@ type Task struct {
 	AssignID    uuid.UUID `gorm:"type:uuid;index" json:"assign_id"`
 	Status      string    `gorm:"type:text;default:'pending'" json:"status" validate:"oneof=wait process done"`
 	
-	TodoGroup   *TodoGroup `gorm:"foreignKey:TodoGroupID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"todo_group"`
+	TodoGroup   *TodoGroup `gorm:"foreignKey:TodoGroupID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"todo_group"`
 	Assign      *User      `gorm:"foreignKey:AssignID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"assign"`
 }
