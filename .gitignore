@@ -1,0 +1,4 @@
+# Ignore local SQLite and other DB files
+*.sqlite
+*.db
+.env
