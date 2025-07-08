@@ -14,4 +14,5 @@ type Task struct {
 	
 	TodoGroup   *TodoGroup `gorm:"foreignKey:TodoGroupID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"todo_group"`
 	Assign      *User      `gorm:"foreignKey:AssignID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"assign"`
+	Discussions []TaskDiscussion `gorm:"foreignKey:TaskID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"task_discussions,omitempty"`
 }

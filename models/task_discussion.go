@@ -12,5 +12,4 @@ type TaskDiscussion struct {
 
 	Task        *Task            `gorm:"foreignKey:TaskID" json:"task,omitempty"`
 	User        *User            `gorm:"foreignKey:UserID" json:"user,omitempty"`
-	Discussions []TaskDiscussion `gorm:"foreignKey:TaskID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"task_discussions,omitempty"`
 }
