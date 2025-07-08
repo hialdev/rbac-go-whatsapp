@@ -93,6 +93,12 @@ func SetupRoutes(app *fiber.App, db *gorm.DB) {
 	tg.Post("/:id", group.Update)
 	tg.Delete("/:id", group.Delete)
 
+	usrr := handlers.NewHandlerGeneric[models.User](db)
+	ur := api.Group("/user")
+	ur.Use(middlewares.JWTProtected())
+	ur.Get("/", usrr.GetAll)
+	ur.Get("/:id", usrr.GetById)
+
 	join := handlers.NewHandlerGeneric[models.TodoGroupMember](db)
 	jg := api.Group("/join")
 	jg.Use(middlewares.JWTProtected())
