@@ -119,4 +119,13 @@ func SetupRoutes(app *fiber.App, db *gorm.DB) {
 	dsc.Post("/", discussion.Create)
 	dsc.Post("/:id", discussion.Update)
 	dsc.Delete("/:id", discussion.Delete)
+
+	notification := handlers.NewHandlerGeneric[models.Notification](db)
+	notif := api.Group("/notification")
+	notif.Use(middlewares.JWTProtected())
+	notif.Get("/", notification.GetAll)
+	notif.Get("/:id", notification.GetById)
+	notif.Post("/", notification.Create)
+	notif.Post("/:id", notification.Update)
+	notif.Delete("/:id", notification.Delete)
 }
