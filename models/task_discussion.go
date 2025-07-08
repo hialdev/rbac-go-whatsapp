@@ -10,6 +10,7 @@ type TaskDiscussion struct {
 	UserID  uuid.UUID `gorm:"type:uuid;not null;index" json:"user_id" validate:"required"`
 	Message string    `gorm:"type:text;not null" json:"message" validate:"required"`
 
-	Task *Task `gorm:"foreignKey:TaskID" json:"task,omitempty"`
-	User *User `gorm:"foreignKey:UserID" json:"user,omitempty"`
+	Task        *Task            `gorm:"foreignKey:TaskID" json:"task,omitempty"`
+	User        *User            `gorm:"foreignKey:UserID" json:"user,omitempty"`
+	Discussions []TaskDiscussion `gorm:"foreignKey:TaskID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"task_discussions,omitempty"`
 }
