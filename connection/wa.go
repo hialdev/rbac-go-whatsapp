@@ -337,6 +337,10 @@ func CheckNumber(phoneNumber string) (bool, error) {
 		cleanNumber = "62" + cleanNumber[1:]
 	}
 
+	if !strings.HasPrefix(cleanNumber, "+") {
+		cleanNumber = "+" + cleanNumber
+	}
+
 	if !strings.Contains(cleanNumber, "@") {
 		cleanNumber += "@s.whatsapp.net"
 	}
